@@ -1,0 +1,4 @@
+1. Прописать в терминал: pip install -r requirements.txt
+2. Запустить файл ipdrone.py
+3. Ввести IP жертвы
+4. Радоваться
