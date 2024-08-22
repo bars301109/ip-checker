@@ -1,21 +1,6 @@
-#coded by N17RO (noob hackers)
-
-#modules required
-import argparse
-import requests, json
+import requests
 import sys
-from sys import argv
-import os
 
-#arguments and parser
-
-parser = argparse.ArgumentParser()
-
-parser.add_argument ("-v", help= "target/host IP address", type=str, dest='target', required=True )
-
-args = parser.parse_args()
-
-#colours used
 red = '\033[31m'
 yellow = '\033[93m'
 lgreen = '\033[92m'
@@ -23,52 +8,55 @@ clear = '\033[0m'
 bold = '\033[01m'
 cyan = '\033[96m'
 
-#banner of script
-print (red+"""
+print(red + """
+IP-CHECKER
 
-██╗██████╗ ██████╗ ██████╗  ██████╗ ███╗   ██╗███████╗
-██║██╔══██╗██╔══██╗██╔══██╗██╔═══██╗████╗  ██║██╔════╝
-██║██████╔╝██║  ██║██████╔╝██║   ██║██╔██╗ ██║█████╗  
-██║██╔═══╝ ██║  ██║██╔══██╗██║   ██║██║╚██╗██║██╔══╝  
-██║██║     ██████╔╝██║  ██║╚██████╔╝██║ ╚████║███████╗
-╚═╝╚═╝     ╚═════╝ ╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═══╝╚══════╝
-                                                      v 1.0
-"""+red)
-print (lgreen+bold+"         <===[[ coded by N17RO ]]===> \n"+clear)
-print (yellow+bold+"   <---(( search on youtube Noob Hackers ))--> \n"+clear)
+                     made by: bars301109
+""" + red)
 
 
-ip = args.target
+ip = input(cyan + bold + "Введите IP-адрес: " + clear)
 
-api = "http://ip-api.com/json/"
+
+api = 'http://ip-api.com/json/'
 
 try:
-        data = requests.get(api+ip).json()
-        sys.stdout.flush()
-        a = lgreen+bold+"[$]"
-        b = cyan+bold+"[$]"
-        print (a, "[Victim]:", data['query'])
-        print(red+"<--------------->"+red)
-        print (b, "[ISP]:", data['isp'])
-        print(red+"<--------------->"+red)
-        print (a, "[Organisation]:", data['org'])
-        print(red+"<--------------->"+red)
-        print (b, "[City]:", data['city'])
-        print(red+"<--------------->"+red)
-        print (a, "[Region]:", data['region'])
-        print(red+"<--------------->"+red)
-        print (b, "[Longitude]:", data['lon'])
-        print(red+"<--------------->"+red)
-        print (a, "[Latitude]:", data['lat'])
-        print(red+"<--------------->"+red)
-        print (b, "[Time zone]:", data['timezone'])
-        print(red+"<--------------->"+red)
-        print (a, "[Zip code]:", data['zip'])
-        print (" "+yellow)
+    response = requests.get(api + ip)
+    data = response.json()
+    if data['status'] == 'fail':
+        print(red + "[~] Невозможно получить данные для указанного IP-адреса." + clear)
+        sys.exit(1)
+
+    # Вывод инфы об IP-адресе
+    a = lgreen + bold + "[$]"
+    b = cyan + bold + "[$]"
+    print(a, "[Цель]:", data['query'])
+    print(red + "<--------------->" + red)
+    print(b, "[Поставщик услуг]:", data['isp'])
+    print(red + "<--------------->" + red)
+    print(a, "[Оператор]:", data['org'])
+    print(red + "<--------------->" + red)
+    print(b, "[Город]:", data['city'])
+    print(red + "<--------------->" + red)
+    print(a, "[Регион]:", data['region'])
+    print(red + "<--------------->" + red)
+    print(b, "[Долгота]:", data['lon'])
+    print(red + "<--------------->" + red)
+    print(a, "[Широта]:", data['lat'])
+    print(red + "<--------------->" + red)
+    print(b, "[Часовой пояс]:", data['timezone'])
+    print(red + "<--------------->" + red)
+    print(a, "[Почтовый индекс]:", data['zip'])
+    print(" " + yellow)
 
 except KeyboardInterrupt:
-        print ('Terminating, Bye'+lgreen)
-        sys.exit(0)
-except requests.exceptions.ConnectionError as e:
-        print (red+"[~]"+" check your internet connection!"+clear)
-sys.exit(1)
+    print('Прерывание, до свидания!' + lgreen)
+    sys.exit(0)
+
+except requests.exceptions.ConnectionError:
+    print(red + "[~] Проверьте ваше интернет-соединение!" + clear)
+    sys.exit(1)
+
+except Exception as e:
+    print(red + f"[~] Произошла ошибка: {str(e)}" + clear)
+    sys.exit(1)
