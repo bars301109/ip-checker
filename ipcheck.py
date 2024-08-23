@@ -51,11 +51,11 @@ try:
     print(" " + yellow)
 
 except KeyboardInterrupt:
-    print('Прерывание, до свидания!' + lgreen)
+    print('Прерывание, остановка скрипта!' + lgreen)
     sys.exit(0)
 
 except requests.exceptions.ConnectionError:
-    print(red + "[~] Проверьте ваше интернет-соединение!" + clear)
+    print(red + "[~] Нет интернета!" + clear)
     sys.exit(1)
 
 except Exception as e:
