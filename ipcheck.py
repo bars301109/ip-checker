@@ -1,5 +1,6 @@
 import requests
 import sys
+from art import tprint
 
 red = '\033[31m'
 yellow = '\033[93m'
@@ -8,11 +9,11 @@ clear = '\033[0m'
 bold = '\033[01m'
 cyan = '\033[96m'
 
+abc = lgreen + 'BARS301109'
+tprint('IP-CHECKER')
 print(red + """
-IP-CHECKER
-
-                     made by: bars301109
-""" + red)
+                     made by:""", abc
+)
 
 
 ip = input(cyan + bold + "Введите IP-адрес: " + clear)
